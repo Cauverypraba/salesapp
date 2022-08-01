@@ -32,12 +32,12 @@ public class HomeController {
     public Iterable<Employee> getEmployees() {
     	return repo.findAll();
     }
-//	
-//	@PostMapping(value = "/addEmployee")
-//	public String addEmployee(@RequestBody Employee emp) {
-//		repo.save(emp);
-//		return "Employee is added!";
-//	}
+
+	@PostMapping(value = "/addEmployee")
+	public String addEmployee(@RequestBody Employee emp) {
+		repo.save(emp);
+		return "Employee is added!";
+	}
 //	
 //	@GetMapping(value = "/getEmployee/{empid}")
 //	public Employee getEmployee(@PathVariable int empid) {
