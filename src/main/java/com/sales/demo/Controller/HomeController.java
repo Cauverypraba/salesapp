@@ -38,12 +38,12 @@ public class HomeController {
 		repo.save(emp);
 		return "Employee is added!";
 	}
-//	
-//	@GetMapping(value = "/getEmployee/{empid}")
-//	public Employee getEmployee(@PathVariable int empid) {
-//		Employee emp = repo.findById(empid).get();
-//		return emp;
-//	}
+	
+	@GetMapping(value = "/getEmployee/{empid}")
+	public Employee getEmployee(@PathVariable int empid) {
+		Employee emp = repo.findById(empid).get();
+		return emp;
+	}
 	
 
 }
