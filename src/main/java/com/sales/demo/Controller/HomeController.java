@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -45,5 +46,14 @@ public class HomeController {
 		return emp;
 	}
 	
+	@PutMapping(value = "/update/{empid}")
+	public String updateEmployee(@PathVariable int empid, @RequestBody Employee emp) {
+		Employee empUpdate = repo.findById(empid).get();
+		empUpdate.setEmpid(emp.getEmpid());
+		empUpdate.setEmpname(emp.getEmpname());
+		empUpdate.setEmpemail(emp.getEmpemail());
+		repo.save(empUpdate);
+		return "Employee is updated successfully!";
+	}
 
 }
