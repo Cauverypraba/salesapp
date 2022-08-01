@@ -28,10 +28,10 @@ public class HomeController {
 		return "Welcome";
 	}
 	
-//	@GetMapping(value = "/employees")
-//    public Iterable<Employee> getEmployees() {
-//    	return repo.findAll();
-//    }
+	@GetMapping(value = "/employees")
+    public Iterable<Employee> getEmployees() {
+    	return repo.findAll();
+    }
 //	
 //	@PostMapping(value = "/addEmployee")
 //	public String addEmployee(@RequestBody Employee emp) {
