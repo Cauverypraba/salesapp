@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.sales.demo.Models.Employee;
-import com.sales.demo.repo.EmployeeRepo;
+import com.sales.demo.Models.Users;
+import com.sales.demo.Models.Users;
+import com.sales.demo.repo.UsersRepo;
+import com.sales.demo.repo.UsersRepo;
 
 import antlr.collections.List;
 
@@ -23,44 +25,64 @@ import antlr.collections.List;
 public class HomeController {
 	
 	@Autowired
-	EmployeeRepo repo;
+	UsersRepo repo;
 	
 	@GetMapping(value ="/")
 	public String index() {
 		return "Welcome";
 	}
 	
-	@GetMapping(value = "/employees")
-    public Iterable<Employee> getEmployees() {
+	@PostMapping(value ="/login/{userid}/{password}")
+	public String login(@PathVariable int userid,@PathVariable String password) {
+		Users user = repo.findById(userid).get();
+		System.out.print(user);
+		String name = user.getUsername();
+		String pswrd = user.getPassword();
+		System.out.println("///"+pswrd);
+		System.out.println(password);
+		System.out.println(pswrd.getClass().getSimpleName());
+		System.out.println(password.getClass().getSimpleName());
+		if(pswrd == password) {
+			return "Successfully Logged in! "+name;
+		}
+		else {
+			return "Provide correct id or password "+name;
+		}	
+	}
+	
+	@GetMapping(value = "/listUsers")
+    public Iterable<Users> getuserloyees() {
     	return repo.findAll();
     }
 
-	@PostMapping(value = "/addEmployee")
-	public String addEmployee(@RequestBody Employee emp) {
-		repo.save(emp);
-		return "Employee is added!";
+	@PostMapping(value = "/addUser")
+	public String addUser(@RequestBody Users user) {
+		repo.save(user);
+		return "User is added!";
 	}
 	
-	@GetMapping(value = "/getEmployee/{empid}")
-	public Employee getEmployee(@PathVariable int empid) {
-		Employee emp = repo.findById(empid).get();
-		return emp;
+	@GetMapping(value = "/getUser/{userid}")
+	public Users getUser(@PathVariable int userid) {
+		Users user = repo.findById(userid).get();
+		return user;
 	}
 	
-	@PutMapping(value = "/update/{empid}")
-	public String updateEmployee(@PathVariable int empid, @RequestBody Employee emp) {
-		Employee empUpdate = repo.findById(empid).get();
-		empUpdate.setEmpid(emp.getEmpid());
-		empUpdate.setEmpname(emp.getEmpname());
-		empUpdate.setEmpemail(emp.getEmpemail());
-		repo.save(empUpdate);
-		return "Employee is updated successfully!";
+	@PutMapping(value = "/update/{userid}")
+	public String updateUser(@PathVariable int userid, @RequestBody Users user) {
+		Users userUpdate = repo.findById(userid).get();
+		userUpdate.setUsername(user.getUsername());
+		userUpdate.setUsername(user.getUsername());
+		userUpdate.setPassword(user.getPassword());
+		userUpdate.setEmail(user.getEmail());
+		userUpdate.setCategory(user.getCategory());
+		repo.save(userUpdate);
+		return "User is updated successfully!";
 	}
     
-	@DeleteMapping(value = "/delete/{empid}")
-	public String deleteEmployee(@PathVariable int empid) {
-		Employee emp = repo.findById(empid).get();
-		repo.delete(emp);
-		return "Employee is deleted successfully!";
+	@DeleteMapping(value = "/delete/{userid}")
+	public String deleteuserloyee(@PathVariable int userid) {
+		Users user = repo.findById(userid).get();
+		repo.delete(user);
+		return "User is deleted successfully!";
 	}
 }
