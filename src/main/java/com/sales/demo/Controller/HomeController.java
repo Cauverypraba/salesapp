@@ -46,7 +46,7 @@ public class HomeController {
 			return "Successfully Logged in! "+name;
 		}
 		else {
-			return "Provide correct id or password "+name;
+			return "Provide correct id or password";
 		}	
 	}
 	
